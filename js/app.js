@@ -37,3 +37,4 @@ document.getElementById("cancelPWAInstall").addEventListener('click', event => {
     document.getElementById("installnotification").style.display="none";
 })
 
+
