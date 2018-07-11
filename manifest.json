@@ -1,7 +1,7 @@
 {
     "name": "RotationConf the Total Original Conference Idea",
     "short_name": "RotationConf",
-    "start_url": "/index.html",
+    "start_url": "/index.html?utm_source=pwa",
     "scope": ".",
     "display": "standalone",
     "orientation": "portrait-primary",
