@@ -1,6 +1,6 @@
 
-const CACHE_STATIC_VERSION = "V3.0";
-const CACHE_DYNAMIC_VERSION = "V3.0"
+const CACHE_STATIC_VERSION = "STATIC-V3.0";
+const CACHE_DYNAMIC_VERSION = "DYNAMIC-V3.0"
 const STATIC_CACHE_FILES = [
     '/index.html',
     '/',
