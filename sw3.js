@@ -1,15 +1,16 @@
 
-const CACHE_STATIC_VERSION = "STATIC-V3.0";
-const CACHE_DYNAMIC_VERSION = "DYNAMIC-V3.0"
+const CACHE_STATIC_VERSION = "V3.00";
+const CACHE_DYNAMIC_VERSION = "DynamicV3.0"
 const STATIC_CACHE_FILES = [
     '/index.html',
     '/',
     '/css/bootstrap.min.css',
-    '/js/app.js'
+    '/js/app.js',
+    '/manifest.json'
 ]
 
 self.addEventListener('install', event => {
-    console.log(`[SW] Installing ${CACHE_STATIC_VERSION}`)
+    console.log(`ServiceWorker Installing ${CACHE_STATIC_VERSION}`,event)
 
     event.waitUntil(
         caches.open(CACHE_STATIC_VERSION)
@@ -19,7 +20,7 @@ self.addEventListener('install', event => {
 });
 
 self.addEventListener('activate', event => {
-    console.log(`[SW] ${CACHE_STATIC_VERSION} activated`);
+    console.log(`ServiceWorker ${CACHE_STATIC_VERSION} activated`,event);
 })
 
 self.addEventListener('fetch',event => {
@@ -27,23 +28,23 @@ self.addEventListener('fetch',event => {
         caches.match(event.request)
         .then(response => {
             if (response){
-                console.log(`[SW] returning cached ${response.url}`);
+                console.log(`ServiceWorker returning cached ${response.url}`,event);
                 return response;
             }
             else {
                 return fetch(event.request)
                 .then(response => {
-                    console.log(`[SW] fetch retrieved ${response.url}`);
+                    console.log(`ServiceWorker fetch retrieved ${response.url}`,event);
                     //return response;
                     return caches.open(CACHE_DYNAMIC_VERSION)
                     .then(cache => {
                         cache.put(event.request.url, response.clone())
-                        console.log(`Added ${event.request.url} to dynamic cache`);
+                        console.log(`Added ${event.request.url} to dynamic cache`,event);
                         return response;
                     })
                 })
                 .catch(err => {
-                    console.log(`[SW] error: ${err}`);
+                    console.log(`ServiceWorker error: ${err}`,event);
                 })
             }
         })

@@ -4,11 +4,12 @@ const STATIC_CACHE_FILES = [
     '/index.html',
     '/',
     '/css/bootstrap.min.css',
-    '/js/app.js'
+    '/js/app.js',
+    '/manifest.json'
 ]
 
 self.addEventListener('install', event => {
-    console.log(`[SW] Installing ${CACHE_STATIC_VERSION}`)
+    console.log(`ServiceWorker Installing ${CACHE_STATIC_VERSION}`,event)
 
     event.waitUntil(
         caches.open(CACHE_STATIC_VERSION)
@@ -18,7 +19,7 @@ self.addEventListener('install', event => {
 });
 
 self.addEventListener('activate', event => {
-    console.log(`[SW] ${CACHE_STATIC_VERSION} activated`);
+    console.log(`ServiceWorker ${CACHE_STATIC_VERSION} activated`,event);
 })
 
 self.addEventListener('fetch',event => {
@@ -26,17 +27,17 @@ self.addEventListener('fetch',event => {
         caches.match(event.request)
         .then(response => {
             if (response){
-                console.log(`[SW] returning cached ${response.url}`);
+                console.log(`ServiceWorker returning cached ${response.url}`,event);
                 return response;
             }
             else {
                 return fetch(event.request)
                 .then(res => {
-                    console.log(`[SW] fetch retrieved ${res.url}`);
+                    console.log(`ServiceWorker fetch retrieved ${res.url}`,event);
                     return res;
                 })
                 .catch(err => {
-                    console.log(`[SW] error: ${err}`);
+                    console.log(`ServiceWorker error: ${err}`,event);
                 })
             }
         })

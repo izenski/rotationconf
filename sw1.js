@@ -1,14 +1,15 @@
 
-const CACHE_STATIC_VERSION = "V1.1";
+const CACHE_STATIC_VERSION = "V1.00";
 const STATIC_CACHE_FILES = [
     '/index.html',
     '/',
     '/css/bootstrap.min.css',
-    '/js/app.js'
+    '/js/app.js',
+    '/manifest.json'
 ]
 
 self.addEventListener('install', event => {
-    console.log(`[SW] Installing ${CACHE_STATIC_VERSION}`)
+    console.log(`ServiceWorker Installing ${CACHE_STATIC_VERSION}`,event)
 
     event.waitUntil(
         caches.open(CACHE_STATIC_VERSION)
@@ -18,7 +19,7 @@ self.addEventListener('install', event => {
 });
 
 self.addEventListener('activate', event => {
-    console.log(`[SW] ${CACHE_STATIC_VERSION} activated`);
+    console.log(`ServiceWorker ${CACHE_STATIC_VERSION} activated`,event);
 })
 
 self.addEventListener('fetch',event => {
