@@ -53,7 +53,7 @@ document.getElementById("notifications")
         lang: 'en-US',
         tag: 'sale-offer',
         vibrate: [100,100,100],
-        badge: '/img/app-icon-96.png'
+        badge: 'img/app-icon-96.png'
       })
     }
     else {        
