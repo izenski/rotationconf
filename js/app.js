@@ -1,5 +1,5 @@
 if ('serviceWorker' in navigator) {
-  navigator.serviceWorker.register('/sw0.js')
+  navigator.serviceWorker.register('/sw3.js')
     .then(function () {
       console.log('[app] serviceWorker registered');
     })
@@ -45,16 +45,23 @@ if ('Notification' in window) {
 document.getElementById("notifications")
   .addEventListener('click', event => {
     if (Notification.permission === "granted"){
-      new Notification('Buy more stuff! ',
-      {
-        body: 'shop now for the best new widgets!',
-        icon: 'img/app-icon-96.png',
-        dir: 'ltr',
-        lang: 'en-US',
-        tag: 'sale-offer',
-        vibrate: [100,100,100],
-        badge: 'img/app-icon-96.png'
-      })
+      navigator.serviceWorker
+        .getRegistration().then((registration) => {
+        registration.showNotification('Time for your class!',
+        {
+          body: 'Your next class starts in 5 minutes',
+          icon: 'img/app-icon-96.png',
+          tag: 'class-notification',
+          data: {
+            classLocation: 'McBride 100',
+            primaryKey: 1
+          },
+          actions: [
+            {action: 'cancel',title: 'Not going'},
+            {action: 'location',title: 'Map'},
+          ]
+        })
+      });
     }
     else {        
       Notification.requestPermission(result => {
@@ -67,3 +74,5 @@ document.getElementById("notifications")
     }
   });
 }
+
+

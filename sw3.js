@@ -51,3 +51,26 @@ self.addEventListener('fetch',event => {
 
     );
 })
+
+self.addEventListener('notificationclick', event => {
+    const notification = event.notification;
+    const action = event.action;
+  
+    console.log('onnotificationclick',notification);
+
+    if (action === 'cancel'){
+        // do an action to cancel the class registration
+    }
+    else if (action === 'location'){
+        clients.openWindow('https://www.bing.com/maps');
+    }
+    notification.close();
+
+});
+
+self.addEventListener('notificationclose', event => {
+const notification = event.notification;
+const action = notification.action;
+
+console.log('Closed notification: ' + action);
+});
